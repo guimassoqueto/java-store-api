@@ -12,3 +12,4 @@
 | `/categories/{id}` |               Categories and its products                |
 | `/clientes/{id}`   |        Client, Client's phone and Client's Address       |
 | `/pedidos/{id}`    | Client's Order, Payment, Order's items, Delivery Address |
+| `/h2-console`      |                     H2 Test Database                     |
