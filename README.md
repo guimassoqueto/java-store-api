@@ -1,1 +1,1 @@
-# java-store-api
+# java-uml-api
