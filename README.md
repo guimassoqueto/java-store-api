@@ -7,8 +7,8 @@
 ![UML Object Diagram](./docs/images/uml-object-diagram.png)
 
 ### API Endpoints
-|      Endpoint      |              Are             |
-|--------------------|:--------------------------------------------:|
+|      Endpoint      |                           Are                            |
+|--------------------|:--------------------------------------------------------:|
 | `/categories/{id}` |               Categories and its products                |
-| `/clientes/{id}`   |        Clients, Clients'phone and Clients' Address       |
+| `/clientes/{id}`   |        Client, Client's phone and Client's Address       |
 | `/pedidos/{id}`    | Client's Order, Payment, Order's items, Delivery Address |
