@@ -2,17 +2,25 @@ package com.guimassoqueto.storeapi.storeapi.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Categoria implements Serializable {
   private static final long serialVersionUID = 1L;
   
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private String name;
+  private String nome;
 
   public Categoria() {}
 
-  public Categoria(Integer id, String name) {
+  public Categoria(Integer id, String nome) {
     this.id = id;
-    this.name = name;
+    this.nome = nome;
   }
 
   public Integer getId() {
@@ -20,11 +28,11 @@ public class Categoria implements Serializable {
   }
 
   public String getName() {
-    return this.name;
+    return this.nome;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String nome) {
+    this.nome = nome;
   }
 
   @Override
