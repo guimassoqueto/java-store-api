@@ -5,7 +5,7 @@ PORT=8080
 open-repo:
 	${BROWSER} https://github.com/guimassoqueto/java-store-api
 
-open-folder:
+dir:
 	${GUI} $$(pwd)
 
 app-browser:
