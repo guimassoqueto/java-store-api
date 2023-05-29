@@ -38,6 +38,9 @@ public class Cliente implements Serializable {
   @CollectionTable(name = "telefone")
   private Set<String> telefones = new HashSet<>();
 
+  @OneToMany(mappedBy = "cliente")
+  private List<Pedido> pedidos = new ArrayList<>();
+
   public Cliente() {}
 
   public Cliente(Integer id, String name, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -105,20 +108,31 @@ public class Cliente implements Serializable {
     this.telefones = telefones;
   }
 
+  public List<Pedido> getPedidos() {
+    return this.pedidos;
+  }
+
+  public void setPedidos(List<Pedido> pedidos) {
+    this.pedidos = pedidos;
+  }
+
   @Override
     public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Cliente)) {
-            return false;
-        }
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id) && Objects.equals(name, cliente.name) && Objects.equals(email, cliente.email) && Objects.equals(cpfOuCnpj, cliente.cpfOuCnpj) && Objects.equals(tipo, cliente.tipo) && Objects.equals(enderecos, cliente.enderecos) && Objects.equals(telefones, cliente.telefones);
+    if (o == this)
+        return true;
+    if (!(o instanceof Cliente)) {
+        return false;
+    }
+    Cliente cliente = (Cliente) o;
+    return Objects.equals(id, cliente.id) && Objects.equals(name, cliente.name) && Objects.equals(email, cliente.email) && Objects.equals(cpfOuCnpj, cliente.cpfOuCnpj) && Objects.equals(tipo, cliente.tipo) && Objects.equals(enderecos, cliente.enderecos) && Objects.equals(telefones, cliente.telefones);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, email, cpfOuCnpj, tipo, enderecos, telefones);
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
   }
 
 }
