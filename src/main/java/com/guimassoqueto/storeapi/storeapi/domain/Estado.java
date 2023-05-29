@@ -10,22 +10,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Estado implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String nome;
 
-  @JsonBackReference
+  @JsonIgnore
   @OneToMany(mappedBy = "estado")
   private List<Cidade> cidades = new ArrayList<Cidade>();
 
-  public Estado() {}
+  public Estado() {
+  }
 
   public Estado(Integer id, String nome) {
     super();
@@ -67,16 +68,19 @@ public class Estado implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
     Estado other = (Estado) obj;
     if (id == null) {
       if (other.id != null) {
         return false;
-      } 
-    } else if (!id.equals(other.id)) return false;
+      }
+    } else if (!id.equals(other.id))
+      return false;
     return true;
   }
 }
-

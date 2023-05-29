@@ -15,32 +15,29 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String nome;
   private Double preco;
 
-  @JsonBackReference
+  @JsonIgnore
   @ManyToMany
-  @JoinTable(name = "PRODUTO_CATEGORIA", 
-    joinColumns = @JoinColumn(name = "produto_id"),
-    inverseJoinColumns = @JoinColumn(name = "categoria_id")
-  )
+  @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
   private List<Categoria> categorias = new ArrayList<>();
-  
+
   @JsonIgnore
   @OneToMany(mappedBy = "id.produto")
   private Set<ItemPedido> itens = new HashSet<>();
 
-  public Produto() {}
+  public Produto() {
+  }
 
   public Produto(Integer id, String nome, Double preco) {
     this.id = id;
@@ -51,7 +48,7 @@ public class Produto implements Serializable {
   @JsonIgnore
   public List<Pedido> getPedidos() {
     List<Pedido> lista = new ArrayList<>();
-    for(ItemPedido ip: this.itens) {
+    for (ItemPedido ip : this.itens) {
       lista.add(ip.getPedido());
     }
     return lista;
@@ -68,7 +65,6 @@ public class Produto implements Serializable {
   public void setItens(Set<ItemPedido> itens) {
     this.itens = itens;
   }
-
 
   public Integer getId() {
     return this.id;
@@ -108,16 +104,20 @@ public class Produto implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
     Produto other = (Produto) obj;
     if (id == null) {
       if (other.id != null) {
         return false;
-      } 
-    } else if (!id.equals(other.id)) return false;
+      }
+    } else if (!id.equals(other.id))
+      return false;
     return true;
   }
-  
+
 }

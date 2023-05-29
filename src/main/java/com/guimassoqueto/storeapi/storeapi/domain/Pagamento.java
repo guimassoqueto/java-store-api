@@ -1,6 +1,6 @@
 package com.guimassoqueto.storeapi.storeapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.guimassoqueto.storeapi.storeapi.domain.enums.EstadoPagamento;
 
 import java.io.Serializable;
@@ -18,25 +18,25 @@ import javax.persistence.OneToOne;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   @Id
   private Integer id;
   private Integer estado;
 
-  @JsonBackReference
+  @JsonIgnore
   @OneToOne
   @JoinColumn(name = "pedido_id")
   @MapsId
   private Pedido pedido;
 
-  public Pagamento() {}
+  public Pagamento() {
+  }
 
   public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
     this.id = id;
     this.estado = estado.getCod();
     this.pedido = pedido;
   }
-
 
   public Integer getId() {
     return this.id;
@@ -63,14 +63,15 @@ public abstract class Pagamento implements Serializable {
   }
 
   @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Pagamento)) {
-            return false;
-        }
-        Pagamento pagamento = (Pagamento) o;
-        return Objects.equals(id, pagamento.id) && Objects.equals(estado, pagamento.estado) && Objects.equals(pedido, pagamento.pedido);
+  public boolean equals(Object o) {
+    if (o == this)
+      return true;
+    if (!(o instanceof Pagamento)) {
+      return false;
+    }
+    Pagamento pagamento = (Pagamento) o;
+    return Objects.equals(id, pagamento.id) && Objects.equals(estado, pagamento.estado)
+        && Objects.equals(pedido, pagamento.pedido);
   }
 
   @Override
