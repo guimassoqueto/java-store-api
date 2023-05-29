@@ -17,26 +17,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
   private Date instante;
-  
-  @JsonManagedReference
+
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
   private Pagamento pagamento;
 
-  @JsonManagedReference
   @ManyToOne
-  @JoinColumn(name="cliente_id")
+  @JoinColumn(name = "cliente_id")
   private Cliente cliente;
 
   @ManyToOne
@@ -46,7 +43,8 @@ public class Pedido implements Serializable {
   @OneToMany(mappedBy = "id.pedido")
   private Set<ItemPedido> itens = new HashSet<>();
 
-  public Pedido() {}
+  public Pedido() {
+  }
 
   public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
     this.id = id;
@@ -54,7 +52,6 @@ public class Pedido implements Serializable {
     this.cliente = cliente;
     this.enderecoDeEntrega = enderecoDeEntrega;
   }
-
 
   public Set<ItemPedido> getItens() {
     return this.itens;
@@ -104,18 +101,16 @@ public class Pedido implements Serializable {
     this.enderecoDeEntrega = enderecoDeEntrega;
   }
 
-
   @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Pedido)) {
-            return false;
-        }
-        Pedido pedido = (Pedido) o;
-        return Objects.equals(id, pedido.id);
+  public boolean equals(Object o) {
+    if (o == this)
+      return true;
+    if (!(o instanceof Pedido)) {
+      return false;
+    }
+    Pedido pedido = (Pedido) o;
+    return Objects.equals(id, pedido.id);
   }
-  
 
   @Override
   public int hashCode() {
