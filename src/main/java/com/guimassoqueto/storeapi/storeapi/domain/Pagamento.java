@@ -1,5 +1,6 @@
 package com.guimassoqueto.storeapi.storeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.guimassoqueto.storeapi.storeapi.domain.enums.EstadoPagamento;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public abstract class Pagamento implements Serializable {
   private Integer id;
   private Integer estado;
 
+  @JsonBackReference
   @OneToOne
   @JoinColumn(name = "pedido_id")
   @MapsId
